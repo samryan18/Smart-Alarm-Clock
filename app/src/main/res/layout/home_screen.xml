@@ -3,7 +3,7 @@
 xmlns:tools = "http://schemas.android.com/tools"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
-android:background="@color/offWhiteBlueGrey"
+android:background="@drawable/night_sky_1"
 android:fitsSystemWindows="true"
 tools:context="be470.upenn.edu.smartalarmclock.HomeScreen"
 android:animateLayoutChanges="true">
@@ -28,6 +28,7 @@ android:animateLayoutChanges="true">
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
+            android:textColor="@color/white"
             android:layout_marginBottom="0dp"
             android:text="Welcome to the smart alarm clock app!\n Click below for more info!"
             android:gravity="center"
@@ -45,6 +46,7 @@ android:animateLayoutChanges="true">
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Choose alarm time range:"
+                android:color="@color/white"
                 android:id="@+id/timeRange"
                 />
 
@@ -58,6 +60,7 @@ android:animateLayoutChanges="true">
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/minute_spinner"
+
                 />
 
         </LinearLayout> <!-- END OF HORIZONTAL SPINNER LL -->
@@ -80,6 +83,7 @@ android:animateLayoutChanges="true">
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
+            android:textColor="@color/white"
             android:layout_marginBottom="0dp"
             android:text="Want your own clock? Check us out!"
             android:gravity="center"
