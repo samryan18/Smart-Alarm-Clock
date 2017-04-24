@@ -34,7 +34,7 @@ public class Settings extends AppCompatActivity {
      * http://www.egr.msu.edu/classes/ece480/capstone/spring14/group01/docs/appnote/Wirsing-SendingAndReceivingDataViaBluetoothWithAnAndroidDevice.pdf
      */
     private void setUpBluetooth() {
-        Toast.makeText(this, "Bluetooth Setup Started..", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Bluetooth Setup Started..", Toast.LENGTH_SHORT).show();
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null) {
             // Device does not support Bluetooth
