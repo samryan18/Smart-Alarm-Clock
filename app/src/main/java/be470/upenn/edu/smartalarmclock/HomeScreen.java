@@ -14,7 +14,7 @@ import android.view.MenuInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class HomeScreen extends AppCompatActivity {
+public class HomeScreen extends MenuBaseActivity {
     // alarm clock resources
     // https://developer.android.com/reference/android/provider/AlarmClock.html
     private Spinner hour_spinner;
@@ -138,37 +138,4 @@ public class HomeScreen extends AppCompatActivity {
         public void onNothingSelected(AdapterView<?> parent) {
         }
     }
-
-    /**************************************************************************
-     **************************** Menu Creation *******************************
-     **************************************************************************/
-    //TODO: update this
-    //builds options menu
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.help:
-                return true;
-            case R.id.settings:
-                Intent goToSettings = new Intent(this, Settings.class);
-                startActivity(goToSettings);
-                return true;
-            case R.id.cancel_alarms:
-                //Intent goToSettings = new Intent(this, Settings.class);
-                //startActivity(goToSettings);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-
 }
