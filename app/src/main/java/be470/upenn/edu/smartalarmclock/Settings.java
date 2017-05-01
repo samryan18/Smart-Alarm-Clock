@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import java.util.Set;
+import android.widget.Button;
 import android.widget.Toast;
+import android.view.View;
 import android.bluetooth.BluetoothSocket;
 import java.util.UUID;
 import java.io.IOException;
@@ -14,18 +16,90 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import android.os.Message;
 import android.os.Handler;
+import android.widget.ProgressBar;
 
 public class Settings extends AppCompatActivity {
     private BluetoothAdapter mBluetoothAdapter;
     private ConnectThread mConnectThread;
     private ConnectedThread mConnectedThread;
     private BluetoothDevice arduino;
+    private static final int PROGRESS = 0x1;
+
+    private ProgressBar mProgress;
+    private int mProgressStatus = 0;
+
+    private Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
-        setUpBluetooth();
+        //setUpBluetooth();
+        fakeBluetooth();
+
+    }
+
+    private void fakeBluetooth() {
+        Toast.makeText(this, "Searching for bluetooths nearby!", Toast.LENGTH_LONG).show();
+        mProgress = (ProgressBar) findViewById(R.id.progress_bar);
+        /*long time1 = System.currentTimeMillis();
+        int mProgressStatus = 0,counter =0;
+        while (mProgressStatus <= 100) {
+            long time2 = System.currentTimeMillis();
+            counter++;
+            if (time2 - time1 > (100 * counter)) {
+                mProgress.setProgress(mProgressStatus);
+                mProgressStatus++;
+            }
+        }*/
+
+        mProgress.setVisibility(View.INVISIBLE);
+        // Start lengthy operation in a background thread
+        /*new Thread(new Runnable() {
+            public void run() {
+                long time1 = System.currentTimeMillis();
+                int counter = 0;
+                while (mProgressStatus < 100) {
+                    long time2 = System.currentTimeMillis();
+                    if (time2-time1 > 10*counter) {
+                        mProgressStatus++;
+                    } counter ++;
+
+
+                    // Update the progress bar
+                    mHandler.post(new Runnable() {
+                        public void run() {
+                            mProgress.setProgress(mProgressStatus);
+                        }
+                    });
+                }
+
+            }
+        }).start();*/
+
+
+        Button bt1=(Button)findViewById(R.id.bt1);
+        bt1.setVisibility(View.VISIBLE); //To set visible
+
+    }
+
+    public void callPair(View v) {
+        Toast.makeText(this, "Pairing...", Toast.LENGTH_LONG).show();
+        /*long time1 = System.currentTimeMillis();
+        int counter = 0;
+        while (counter < 55) {
+            long time2 = System.currentTimeMillis();
+            if (time2 - time1 > 100 * counter) {
+                counter++;
+            }
+        }*/
+        Toast.makeText(this, "Device Paired. Sleep well :)", Toast.LENGTH_LONG).show();
+
+    }
+
+    public void goHome(View v) {
+        Intent goToHome = new Intent(this, HomeScreen.class);
+        startActivity(goToHome);
     }
 
     /**
@@ -50,12 +124,11 @@ public class Settings extends AppCompatActivity {
             if (pairedDevices.size() > 0) {
                 for (BluetoothDevice device : pairedDevices) {
                     arduino = device;
-                    Toast.makeText(this, "Found a device", Toast.LENGTH_LONG).show();
-                    //String deviceName = arduino.getName();
-                    //String deviceHardwareAddress = arduino.getAddress(); // MAC address
+                    String deviceName = arduino.getName();
+                    String deviceHardwareAddress = arduino.getAddress(); // MAC address
+                    Toast.makeText(this, ("Found a device: " + deviceName + " Mac Address: " + deviceHardwareAddress), Toast.LENGTH_SHORT).show();
                     mConnectThread = new ConnectThread(arduino);
                     mConnectThread.start();
-                    Toast.makeText(this, "mConnectThreadStarted", Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -84,6 +157,7 @@ public class Settings extends AppCompatActivity {
             mmDevice = device;
             try {
                 tmp = device.createRfcommSocketToServiceRecord(MY_UUID);
+
             } catch (IOException e) { }
             mmSocket = tmp;
         }
@@ -139,8 +213,9 @@ public class Settings extends AppCompatActivity {
                 try {
                     bytes += mmInStream.read(buffer, bytes, buffer.length - bytes);
                     for(int i = begin; i < bytes; i++) {
+
                         if(buffer[i] == "#".getBytes()[0]) /* if '#' terminating character reached */ {
-                            mHandler.obtainMessage(1, begin, i, buffer).sendToTarget();
+                            mHandler2.obtainMessage(1, begin, i, buffer).sendToTarget();
                             begin = i + 1;
                             if(i == bytes - 1) {
                                 bytes = 0;
@@ -165,7 +240,7 @@ public class Settings extends AppCompatActivity {
         }
     }
 
-    Handler mHandler = new Handler() {
+    Handler mHandler2 = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             byte[] writeBuf = (byte[]) msg.obj;
@@ -176,6 +251,8 @@ public class Settings extends AppCompatActivity {
                 case 1:
                     String writeMessage = new String(writeBuf);
                     writeMessage = writeMessage.substring(begin, end);
+                    System.out.println(writeMessage);
+
                     break;
             }
         }

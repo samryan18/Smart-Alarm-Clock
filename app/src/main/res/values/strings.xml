@@ -11,6 +11,13 @@
     </string-array>
 
 
+    <string name="connected">"com.example.bluetooth.le.ACTION_GATT_CONNECTED"</string>
+    <string name="disconnected">"com.example.bluetooth.le.ACTION_GATT_DISCONNECTED"</string>
+    <string name="no_data">"no_data"</string>
+    <string name="unknown_characteristic">"unknown_characteristic"</string>
+    <string name="unknown_service">"unknown_service"</string>
+
+
     <string-array name="hour_choices">
         <item>12</item>
         <item>1</item>

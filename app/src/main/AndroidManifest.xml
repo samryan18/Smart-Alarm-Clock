@@ -17,7 +17,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Cardialarm!"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".HomeScreen">
@@ -27,9 +27,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Splash" />
         <activity android:name=".Settings" />
         <activity android:name=".Test" />
-        <activity android:name=".MenuBaseActivity"></activity>
+        <activity android:name=".MenuBaseActivity" />
+        <activity android:name=".CurrentAlarms"></activity>
     </application>
 
 </manifest>

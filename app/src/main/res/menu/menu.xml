@@ -17,6 +17,21 @@
         android:title="Cancel Alarm"
         tools:ignore="AppCompatResource"/>
 
+    <item android:id="@+id/current_alarms"
+        android:showAsAction="never"
+        android:title="My Alarms"
+        tools:ignore="AppCompatResource"/>
+
+    <item android:id="@+id/home"
+        android:showAsAction="never"
+        android:title="Home"
+        tools:ignore="AppCompatResource"/>
+
+    <item android:id="@+id/bluetooth"
+        android:showAsAction="never"
+        android:title="Bluetooth Services"
+        tools:ignore="AppCompatResource"/>
+
     cancel_alarms
 
 </menu>

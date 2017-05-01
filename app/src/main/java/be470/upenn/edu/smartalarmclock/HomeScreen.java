@@ -5,14 +5,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.provider.AlarmClock;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.widget.Spinner; // for spinner
 import android.widget.ArrayAdapter; // for spinner
 import android.widget.AdapterView; // for spinner
 import android.net.Uri; // for going to our website
+import android.widget.TextView;
 import android.widget.Toast;
 import android.view.MenuInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toolbar;
 
 public class HomeScreen extends MenuBaseActivity {
     // alarm clock resources
@@ -29,7 +32,15 @@ public class HomeScreen extends MenuBaseActivity {
         setContentView(R.layout.home_screen);
         hour_spinner = setHourSpinner();
         minute_spinner = setMinuteSpinner();
+        setWelcomeText();
     }
+
+    private void setWelcomeText() {
+        TextView lView = (TextView)findViewById(R.id.welcome); // initialize lView
+        if (PublicVars.sleepMode) lView.setText("Alarm is set! HR is being monitored! \nHappy sleeping!");
+        else lView.setText("Welcome to the smart alarm clock app!\n Click below for more info!");
+    }
+
 
 
     /**************************************************************************
@@ -52,6 +63,8 @@ public class HomeScreen extends MenuBaseActivity {
                 .putExtra(AlarmClock.EXTRA_MINUTES, minutes);
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
+
+
         }
     }
 
@@ -65,7 +78,12 @@ public class HomeScreen extends MenuBaseActivity {
      */
     public void setAlarm(View v) {
         // Toast.makeText(this, "do deez", Toast.LENGTH_LONG).show();
-        createAlarm("Smart Alarm!", firstHour, firstMinute);
+        createAlarm("Cardialarm!", firstHour, firstMinute);
+        if (firstMinute>=10) PublicVars.minutes = ""+firstMinute;
+        else PublicVars.minutes = "0"+firstMinute;
+        PublicVars.hour = firstHour;
+        PublicVars.sleepMode = true;
+
     }
 
     /* Goes to settings page */
@@ -76,10 +94,12 @@ public class HomeScreen extends MenuBaseActivity {
 
     /* Sends User to Our Site! */
     public void goToWeb(View v) {
-        Uri url = Uri.parse("http://penngineering.weebly.com ");
+        Uri url = Uri.parse("http://penngineering.weebly.com");
         Intent launchInternet = new Intent(Intent.ACTION_VIEW, url);
         startActivity(launchInternet);
     }
+
+
 
     /**************************************************************************
      ************************* Spinner Methods/Class **************************
@@ -92,9 +112,11 @@ public class HomeScreen extends MenuBaseActivity {
     private Spinner setHourSpinner() {
         //From Spinner Android Documentation
         Spinner hour_spinner = (Spinner) findViewById(R.id.hour_spinner);
+        hour_spinner.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.SRC_ATOP);
+
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.hour_choices, android.R.layout.simple_spinner_item);
+                R.array.hour_choices, R.layout.spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
@@ -110,9 +132,11 @@ public class HomeScreen extends MenuBaseActivity {
     private Spinner setMinuteSpinner() {
         //From Spinner Android Documentation
         Spinner minute_spinner = (Spinner) findViewById(R.id.minute_spinner);
+        minute_spinner.getBackground().setColorFilter(0xFFFFFF, PorterDuff.Mode.SRC_ATOP);
+
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.minute_choices, android.R.layout.simple_spinner_item);
+                R.array.minute_choices, R.layout.spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner

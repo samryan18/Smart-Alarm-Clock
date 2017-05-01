@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MenuBaseActivity extends AppCompatActivity {
 
@@ -35,6 +36,21 @@ public class MenuBaseActivity extends AppCompatActivity {
             case R.id.cancel_alarms:
                 //Intent goToSettings = new Intent(this, Settings.class);
                 //startActivity(goToSettings);
+                return true;
+            case R.id.current_alarms:
+                Intent goToAlarms = new Intent(this, CurrentAlarms.class);
+                startActivity(goToAlarms);
+
+                return true;
+
+            case R.id.home:
+                Intent goHome = new Intent(this, HomeScreen.class);
+                startActivity(goHome);
+                return true;
+            case R.id.bluetooth:
+                //Intent goToBT = new Intent(this, DeviceControlActivity.class);
+                //startActivity(goToBT);
+                //PublicVars.sleepMode=false;
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
