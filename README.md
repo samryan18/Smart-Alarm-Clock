@@ -1,6 +1,6 @@
 # Smart Alarm Clock
-<img src="device2.jpg" width="600"/>
+<img src="device2.jpg" height="400"/><img src="homepage.jpg" height="400"/>
 <br>
 
-<img src="device.jpg" height="200"/> <img src="circuitry.jpg" height="200"/>
- <img src="homepage.jpg" height="200"/>
+<img src="device.jpg" height="300"/> <img src="circuitry.jpg" height="300"/>
+ 
