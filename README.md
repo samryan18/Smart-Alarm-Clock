@@ -1,3 +1,3 @@
 # Smart Alarm Clock
-![Homepage Image](homepage.jpg)
-![Device Image](device.jpg)
+
+<img src="device.jpg" height="300"/> <img src="homepage.jpg" height="300"/>
